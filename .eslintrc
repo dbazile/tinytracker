@@ -1,6 +1,10 @@
 {
+  "plugins": [
+    "react"
+  ],
   "ecmaFeatures": {
-    "modules": true
+    "modules": true,
+    "jsx": true
   },
   "env": {
     "browser": true,
@@ -8,6 +12,8 @@
     "es6": true
   },
   "rules": {
+    "react/jsx-uses-react": 1,
+    "react/jsx-no-undef": 2,
     "comma-dangle": 1,
     "complexity": [1, 5],
     "curly": 2,

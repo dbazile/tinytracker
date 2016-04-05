@@ -1,9 +1,11 @@
 {
-  "name": "new-webapp",
+  "name": "tinytracker",
   "version": "1.0.0",
-  "description": "New web application skeleton",
+  "description": "Just a way for me to track my hours to enter into my timekeeping system.",
   "scripts": {
-    "test": "mocha"
+    "build": "IS_PRODUCTION=1 webpack --colors --progress",
+    "test": "mocha",
+    "watch": "webpack-dev-server --colors"
   },
   "author": "David Bazile",
   "license": "ISC",
@@ -11,13 +13,20 @@
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
+    "babel-preset-react": "^6.5.0",
     "css-loader": "^0.23.0",
     "eslint": "^1.10.1",
     "eslint-loader": "^1.1.1",
+    "eslint-plugin-react": "^4.2.3",
     "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.15.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.8"
+    "webpack": "^1.12.8",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "react": "^0.14.8"
   }
 }
