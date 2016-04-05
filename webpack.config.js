@@ -32,8 +32,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: `${package_.name} v${package_.version}`,
       favicon: path.join(__dirname, 'app/images/favicon.png')
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    })
   ]
 };
 

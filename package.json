@@ -5,7 +5,7 @@
   "scripts": {
     "build": "IS_PRODUCTION=1 webpack --colors --progress",
     "test": "mocha",
-    "watch": "webpack-dev-server --colors"
+    "watch": "webpack-dev-server --colors --hot --inline"
   },
   "author": "David Bazile",
   "license": "ISC",
