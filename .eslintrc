@@ -2,18 +2,20 @@
   "plugins": [
     "react"
   ],
-  "ecmaFeatures": {
-    "modules": true,
-    "jsx": true
+  "ecmaVersion": 6,
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "env": {
     "browser": true,
     "node": true,
     "es6": true
   },
+  "extends": ["plugin:react/recommended"],
   "rules": {
-    "react/jsx-uses-react": 1,
-    "react/jsx-no-undef": 2,
     "comma-dangle": 1,
     "complexity": [1, 5],
     "curly": 2,
