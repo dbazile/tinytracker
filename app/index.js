@@ -1,6 +1,9 @@
 import './styles/index.less';
 
-import {SOME_CONFIG_PROPERTY} from './config';
+import React from 'react';
+import {render} from 'react-dom';
+import Application from './components/Application';
 
-console.debug('Application bootstrapped.');
-console.debug('SOME_CONFIG_PROPERTY:', SOME_CONFIG_PROPERTY);
+const target = document.createElement('div');
+document.body.appendChild(target);
+render(<Application/>, target);

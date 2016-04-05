@@ -1,0 +1,46 @@
+:global(.Duration) {
+  display: flex;
+}
+
+.start,
+.stop,
+.hours {
+  flex: 3;
+}
+
+.start,
+.stop {
+  border: 2px solid transparent;
+  margin: 0;
+  background-color: transparent;
+  padding: .5em;
+  font-size: 16px;
+  font-family: Menlo, monospace;
+  outline: white;
+  width: 100%;
+  border-radius: 2px;
+  cursor: pointer;
+  &::-webkit-input-placeholder {
+    color: fade(black, 7%);
+  }
+  &:hover {
+    background-color: fade(green, 5%);
+  }
+  &:focus {
+    border: 2px solid green;
+    box-shadow: 2px 2px fade(black, 10%);
+  }
+  :global(.is-today) {
+    color: white;
+  }
+  :global(.is-today) &:focus {
+    border-color: white;
+  }
+}
+
+.hours {
+  width: 10em;
+  text-align: center;
+  padding: .5em;
+  opacity: .4;
+}
