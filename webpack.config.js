@@ -32,6 +32,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.EnvironmentPlugin(['NODE_ENV']),
     new HtmlWebpackPlugin({
       title: `${package_.name} v${package_.version}`,
       favicon: path.join(__dirname, 'app/images/favicon.png')
@@ -39,8 +40,7 @@ module.exports = {
   ]
 };
 
-if (process.env.IS_PROD_BUILD) {
+if (process.env.NODE_ENV === 'production') {
   const plugins = module.exports.plugins;
-  plugins.push(new webpack.DefinePlugin({'process.env.NODE_ENV': '"production"'}));
-  plugins.push(new webpack.UglifyJsPlugin());
+  plugins.push(new webpack.optimize.UglifyJsPlugin());
 }

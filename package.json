@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Just a way for me to track my hours to enter into my timekeeping system.",
   "scripts": {
-    "build": "IS_PRODUCTION=1 webpack --colors --progress",
+    "build": "NODE_ENV=production webpack --colors --progress",
     "test": "eslint webpack.config.js app/**/*.{js,jsx} && mocha",
     "watch": "webpack-dev-server --colors --hot --inline"
   },
