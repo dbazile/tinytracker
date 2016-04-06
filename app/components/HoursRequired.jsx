@@ -9,25 +9,32 @@ export default class HoursRequired extends Component {
 
   constructor() {
     super();
-    this._emitChange = this._emitChange.bind(this);
+    this._notify = this._notify.bind(this);
   }
 
   render() {
     return (
-      <div className={styles.root}>
-        <input
-          ref="hours"
-          className={styles.hours}
-          value={this.props.hours}
-          onChange={this._emitChange}
-          type="number"
-          min="0"
-          max="60"/> hours required this week
+      <div className={`${styles.root} ${this._irregular}`}>
+        <label>
+          <input
+            ref="hours"
+            className={styles.hours}
+            value={this.props.hours}
+            onChange={this._notify}
+            type="number"
+            min="0"
+            max="60"/>
+          <span>hours required this week</span>
+        </label>
       </div>
     );
   }
 
-  _emitChange(event) {
+  get _irregular() {
+    return (this.props.hours !== 40) ? styles.irregular : '';
+  }
+
+  _notify(event) {
     this.props.changed(event.target.value);
   }
 }

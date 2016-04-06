@@ -1,5 +1,5 @@
-import styles from './Application.less';
 import React, {Component} from 'react';
+import styles from './Application.less';
 import Week from './Week';
 import HoursRequired from './HoursRequired';
 import HoursRemaining from './HoursRemaining';
@@ -29,8 +29,10 @@ export default class Application extends Component {
       <div className={styles.root}>
         <h1>tinytracker</h1>
         <Week days={this.state.days} changed={this._durationsChanged}/>
-        <HoursRequired hours={this.state.requiredHours} changed={this._requiredHoursChanged}/>
-        <HoursRemaining worked={this._hoursWorked} required={this.state.requiredHours}/>
+        <div className={styles.metrics}>
+          <HoursRequired hours={this.state.requiredHours} changed={this._requiredHoursChanged}/>
+          <HoursRemaining worked={this._hoursWorked} required={this.state.requiredHours}/>
+        </div>
       </div>
     );
   }
