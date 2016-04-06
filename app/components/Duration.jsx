@@ -1,6 +1,6 @@
 import moment from 'moment';
-import styles from './Duration.less';
 import React, {Component} from 'react';
+import styles from './Duration.less';
 
 const TIME_FORMAT = 'H:m';
 

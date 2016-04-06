@@ -6,6 +6,7 @@ export default class HoursRemaining extends Component {
     required: React.PropTypes.number,
     worked: React.PropTypes.number
   };
+
   render() {
     return (
       <ul className="HoursRemaining">

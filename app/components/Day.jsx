@@ -1,5 +1,5 @@
-import styles from './Day.less';
 import React, {Component} from 'react';
+import styles from './Day.less';
 import Duration from './Duration';
 
 const NAMES = [
