@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './Week.less';
+import styles from './Week.less';
 import Day from './Day';
 
 export default class Week extends Component {
@@ -9,11 +9,11 @@ export default class Week extends Component {
 
   render() {
     return (
-      <ul className="Week">
+      <ul className={styles.root}>
         {this.props.days.map(day =>
           <Day
-            key={day.index}
-            index={day.index}
+            key={day.name}
+            name={day.name}
             times={day.times}/>
         )}
       </ul>

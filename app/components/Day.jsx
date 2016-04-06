@@ -1,22 +1,12 @@
 import React, {Component} from 'react';
 import styles from './Day.less';
 import Duration from './Duration';
-import {aggregate} from '../utils/time';
-
-const NAMES = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-];
+import {aggregate, DAYS} from '../utils/time';
 
 export default class Day extends Component {
   static propTypes = {
     changed: React.PropTypes.func,
-    index: React.PropTypes.number,
+    name: React.PropTypes.string,
     times: React.PropTypes.array
   };
 
@@ -26,12 +16,11 @@ export default class Day extends Component {
   }
 
   render() {
-    const name = NAMES[this.props.index];
-    const classes = `Day ${this._isToday() ? 'is-today' : ''}`;
+    const classes = `${styles.root} ${this._isToday}`;
     return (
       <div className={classes}>
-        <h2 className={styles.name}>{name}</h2>
-        <div className={styles.hours}>{this._calculateHours().toFixed(1)}</div>
+        <h2 className={styles.name}>{this.props.name}</h2>
+        <div className={styles.hours}>{this._hours}</div>
         {this.props.times.map(([start, stop], index) =>
           <Duration
             key={index}
@@ -43,15 +32,14 @@ export default class Day extends Component {
     );
   }
 
-  _calculateHours() {
-    return aggregate(this.props.times);
+  get _hours() {
+    return aggregate(this.props.times).toFixed(1);
+  }
+
+  get _isToday() {
+    return new Date().getDay() === DAYS.indexOf(this.props.name) ? 'is-today' : '';
   }
 
   _durationChanged([start, stop]) {
-    debugger;
-  }
-
-  _isToday() {
-    return new Date().getDay() === this.props.index;
   }
 }

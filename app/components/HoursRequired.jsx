@@ -1,5 +1,5 @@
-import './HoursRequired.less';
 import React, {Component} from 'react';
+import styles from './HoursRequired.less';
 
 export default class HoursRequired extends Component {
   static propTypes = {
@@ -14,16 +14,16 @@ export default class HoursRequired extends Component {
 
   render() {
     return (
-      <ul className="HoursRequired">
+      <div className={styles.root}>
         <input
           ref="hours"
-          className="hours"
+          className={styles.hours}
           value={this.props.hours}
           onChange={this._emitChange}
           type="number"
           min="0"
           max="60"/> hours required this week
-      </ul>
+      </div>
     );
   }
 

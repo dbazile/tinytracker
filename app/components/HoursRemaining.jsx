@@ -1,5 +1,5 @@
-import './HoursRemaining.less';
 import React, {Component} from 'react';
+import styles from './HoursRemaining.less';
 
 export default class HoursRemaining extends Component {
   static propTypes = {
@@ -9,9 +9,13 @@ export default class HoursRemaining extends Component {
 
   render() {
     return (
-      <ul className="HoursRemaining">
-        {Math.round(this.props.required - this.props.worked)} hours remaining
-      </ul>
+      <div className={styles.root}>
+        <span className={styles.hours}>{this._hours}</span> hours remaining
+      </div>
     );
+  }
+
+  get _hours() {
+    return parseFloat(this.props.required - this.props.worked).toFixed(1);
   }
 }

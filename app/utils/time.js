@@ -2,6 +2,16 @@ import moment from 'moment';
 
 const PARSE_FORMAT = 'H:m';
 
+export const DAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+];
+
 export function aggregate(tuples) {
   return tuples.reduce((sum, tuple) => sum + diff(tuple), 0.0);
 }
