@@ -4,8 +4,14 @@ import Day from './Day';
 
 export default class Week extends Component {
   static propTypes = {
+    changed: React.PropTypes.func,
     days: React.PropTypes.arrayOf(React.PropTypes.object)
   };
+
+  constructor() {
+    super();
+    this._dayChanged = this._dayChanged.bind(this);
+  }
 
   render() {
     return (
@@ -14,9 +20,15 @@ export default class Week extends Component {
           <Day
             key={day.name}
             name={day.name}
-            times={day.times}/>
+            times={day.times}
+            changed={times => this._dayChanged(day.name, times)}/>
         )}
       </ul>
     );
+  }
+
+  _dayChanged(name, times) {
+    const {days, changed} = this.props;
+    changed(days.map(d => d.name === name ? Object.assign({}, d, {times}) : d));  // MOAR Bootleg Redux
   }
 }

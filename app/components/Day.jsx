@@ -26,7 +26,7 @@ export default class Day extends Component {
             key={index}
             start={start}
             stop={stop}
-            changed={this._durationChanged}/>
+            changed={tuple => this._durationChanged(index, tuple)}/>
         )}
       </div>
     );
@@ -40,6 +40,8 @@ export default class Day extends Component {
     return new Date().getDay() === DAYS.indexOf(this.props.name) ? 'is-today' : '';
   }
 
-  _durationChanged([start, stop]) {
+  _durationChanged(index, tuple) {
+    const {times, changed} = this.props;
+    changed(times.map((t, i) => i === index ? tuple : t));  // Bootleg Redux
   }
 }

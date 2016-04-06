@@ -10,7 +10,7 @@ const [, MON, TUE, WED, THU, FRI] = DAYS;
 export default class Application extends Component {
   constructor() {
     super();
-    this._durationsChanged = this._durationsChanged.bind(this);
+    this._daysChanged = this._daysChanged.bind(this);
     this._requiredHoursChanged = this._requiredHoursChanged.bind(this);
     this.state = {
       days: [
@@ -28,7 +28,7 @@ export default class Application extends Component {
     return (
       <div className={styles.root}>
         <h1>tinytracker</h1>
-        <Week days={this.state.days} changed={this._durationsChanged}/>
+        <Week days={this.state.days} changed={this._daysChanged}/>
         <div className={styles.metrics}>
           <HoursRequired hours={this.state.requiredHours} changed={this._requiredHoursChanged}/>
           <HoursRemaining worked={this._hoursWorked} required={this.state.requiredHours}/>
@@ -41,8 +41,8 @@ export default class Application extends Component {
     return this.state.days.reduce((sum, day) => sum + aggregate(day.times), 0.0);
   }
 
-  _durationsChanged(value) {
-    this.setState({workdays});
+  _daysChanged(days) {
+    this.setState({days});
   }
 
   _requiredHoursChanged(value) {
