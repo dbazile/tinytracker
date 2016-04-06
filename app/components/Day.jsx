@@ -3,6 +3,8 @@ import styles from './Day.less';
 import Duration from './Duration';
 import {aggregate, DAYS} from '../utils/time';
 
+const TICK_INTERVAL = 15 * 60 * 1000;
+
 export default class Day extends Component {
   static propTypes = {
     changed: React.PropTypes.func,
@@ -13,6 +15,15 @@ export default class Day extends Component {
   constructor() {
     super();
     this._durationChanged = this._durationChanged.bind(this);
+    this._tick = this._tick.bind(this);
+  }
+
+  componentDidMount() {
+    this._tickerId = setInterval(this._tick, TICK_INTERVAL);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._tickerId);
   }
 
   render() {
@@ -43,5 +54,10 @@ export default class Day extends Component {
   _durationChanged(index, tuple) {
     const {times, changed} = this.props;
     changed(times.map((t, i) => i === index ? tuple : t));  // Bootleg Redux
+  }
+
+  _tick() {
+      console.debug('@day#tick (next in %d) ms', TICK_INTERVAL);
+      this.forceUpdate();  // FIXME - probably not the right answer here but it's almost 2 am...  Scratch that, it IS 2 am
   }
 }
