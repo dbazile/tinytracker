@@ -1,34 +1,40 @@
-import moment from 'moment';
 import React, {Component} from 'react';
 import styles from './Duration.less';
-
-const TIME_FORMAT = 'H:m';
+import {diff} from '../utils/time';
 
 export default class Duration extends Component {
+  static propTypes = {
+    changed: React.PropTypes.func,
+    start: React.PropTypes.string,
+    stop: React.PropTypes.string
+  };
+
   constructor() {
     super();
+    this._recalculate = this._recalculate.bind(this);
+    this._notify = this._notify.bind(this);
     this.state = {hours: 0.0};
   }
 
   render() {
     return (
       <div className="Duration">
-        <input className={styles.start} maxLength="5" ref="start" type="text" placeholder="HH:MM"/>
-        <input className={styles.stop} maxLength="5" ref="stop" type="text" placeholder="HH:MM"/>
-        <span className={styles.hours}>{this._calculateDuration().toFixed(1)}</span>
+        <input ref="start" className={styles.start} value={this.props.start || ''} maxLength="5" placeholder="HH:MM" onChange={this._notify}/>
+        <input ref="stop"  className={styles.stop}  value={this.props.stop || ''}  maxLength="5" placeholder="HH:MM" onChange={this._notify}/>
+        <span className={styles.hours}>{this._calculate()}</span>
       </div>
     );
   }
 
-  componentDidMount() {
-    this.refs.start.addEventListener('change', () => this.forceUpdate());
-    this.refs.stop.addEventListener('change', () => this.forceUpdate());
+  _calculate() {
+    return diff([this.props.start, this.props.stop]).toFixed(1);
   }
 
-  _calculateDuration() {
-    if (!(this.refs.start && this.refs.stop)) return 0.0;
-    const start = moment(this.refs.start.value, TIME_FORMAT);
-    const stop = moment(this.refs.stop.value, TIME_FORMAT);
-    return (Math.round(stop.diff(start, 'hour', true) * 2) / 2) || 0.0;
+  _notify() {
+    this.props.changed([this.refs.start.value, this.refs.stop.value]);
+  }
+
+  _recalculate() {
+    this.forceUpdate();
   }
 }
