@@ -1,6 +1,5 @@
 import './HoursRequired.less';
 import React, {Component} from 'react';
-import Day from './Day';
 
 export default class HoursRequired extends Component {
   render() {

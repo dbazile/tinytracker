@@ -13,8 +13,8 @@ export default class Duration extends Component {
   render() {
     return (
       <div className="Duration">
-        <input className={styles.start} maxLength="5" ref="start" type="time" placeholder="HH:MM"/>
-        <input className={styles.stop} maxLength="5" ref="stop" type="time" placeholder="HH:MM"/>
+        <input className={styles.start} maxLength="5" ref="start" type="text" placeholder="HH:MM"/>
+        <input className={styles.stop} maxLength="5" ref="stop" type="text" placeholder="HH:MM"/>
         <span className={styles.hours}>{this._calculateDuration().toFixed(1)}</span>
       </div>
     );

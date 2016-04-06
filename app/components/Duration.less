@@ -14,12 +14,14 @@
   margin: 0;
   background-color: transparent;
   padding: .5em;
-  font-size: 16px;
+  font-size: 14px;
   font-family: Menlo, monospace;
+  font-weight: bold;
   outline: white;
   width: 100%;
   border-radius: 2px;
   cursor: pointer;
+  text-align: center;
   &::-webkit-input-placeholder {
     color: fade(black, 7%);
   }
@@ -30,7 +32,7 @@
     border: 2px solid green;
     box-shadow: 2px 2px fade(black, 10%);
   }
-  :global(.is-today) {
+  :global(.is-today) & {
     color: white;
   }
   :global(.is-today) &:focus {

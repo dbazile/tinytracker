@@ -1,8 +1,11 @@
 import './HoursRemaining.less';
 import React, {Component} from 'react';
-import Day from './Day';
 
 export default class HoursRemaining extends Component {
+  static propTypes = {
+    required: React.PropTypes.number,
+    worked: React.PropTypes.number
+  };
   render() {
     return (
       <ul className="HoursRemaining">
