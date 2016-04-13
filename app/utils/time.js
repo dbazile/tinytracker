@@ -17,7 +17,7 @@ export function aggregate(tuples) {
 }
 
 export function diff([start, stop]) {
-  return parse(stop).diff(parse(start), 'hour', true) || 0.0;
+  return round(parse(stop).diff(parse(start), 'hour', true)) || 0.0;
 }
 
 //
@@ -26,4 +26,8 @@ export function diff([start, stop]) {
 
 function parse(value) {
   return moment(value, PARSE_FORMAT);
+}
+
+function round(n) {
+  return Math.round(n / 0.5) * 0.5;
 }
