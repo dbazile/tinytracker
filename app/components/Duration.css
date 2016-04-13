@@ -8,8 +8,7 @@
   flex: 3;
 }
 
-.start,
-.stop {
+.time-field {
   border: 2px solid transparent;
   margin: 0;
   background-color: transparent;
@@ -22,22 +21,32 @@
   border-radius: 2px;
   cursor: pointer;
   text-align: center;
-  &::-webkit-input-placeholder {
-    color: fade(black, 7%);
-  }
-  &:hover {
-    background-color: fade(green, 5%);
-  }
-  &:focus {
-    border: 2px solid green;
-    box-shadow: 2px 2px fade(black, 10%);
-  }
-  :global(.is-today) & {
-    color: white;
-  }
-  :global(.is-today) &:focus {
-    border-color: white;
-  }
+}
+
+.time-field::-webkit-input-placeholder {
+  color: rgba(0,0,0, .07);
+}
+
+.time-field:hover {
+  background-color: rgba(0,255,0, .05);
+}
+
+.time-field:focus {
+  border: 2px solid green;
+  box-shadow: 2px 2px rgba(0,0,0, .1);
+}
+
+:global(.is-today) .time-field {
+  color: white;
+}
+
+:global(.is-today) .time-field:focus {
+  border-color: white;
+}
+
+.start,
+.stop {
+  composes: time-field;
 }
 
 .hours {

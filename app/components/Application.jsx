@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import styles from './Application.less';
+import styles from './Application.css';
 import Week from './Week';
 import HoursRequired from './HoursRequired';
 import HoursRemaining from './HoursRemaining';

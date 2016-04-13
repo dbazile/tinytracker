@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import styles from './HoursRemaining.less';
+import styles from './HoursRemaining.css';
 
 export default class HoursRemaining extends Component {
   static propTypes = {

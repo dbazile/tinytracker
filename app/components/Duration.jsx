@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import styles from './Duration.less';
+import styles from './Duration.css';
 import {diff} from '../utils/time';
 
 export default class Duration extends Component {

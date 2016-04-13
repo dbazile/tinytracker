@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import styles from './Day.less';
+import styles from './Day.css';
 import Duration from './Duration';
 import {aggregate, DAYS} from '../utils/time';
 

@@ -25,8 +25,7 @@ module.exports = {
     ],
     loaders: [
       {test: /\.jsx?$/, loader: 'babel', exclude: /node_modules/},
-      {test: /\.css$/, loader: 'style!css'},
-      {test: /\.less$/, loader: 'style!css?modules&localIdentName=[name]__[local]!less'},
+      {test: /\.css$/, loader: 'style!css?modules&localIdentName=[name]__[local]'},
       {test: /\.(png|jpg|gif)$/, loader: 'file'}
     ]
   },

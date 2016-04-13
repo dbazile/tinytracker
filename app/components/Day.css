@@ -1,13 +1,10 @@
-@import '../styles/constants/colors.less';
-@import '../styles/constants/typography.less';
-
 .root {
   flex: 5;
   border-radius: 2px;
+}
 
-  + .root {
-    margin-left: .2em;
-  }
+.root  + .root {
+  margin-left: .2em;
 }
 
 :global(.is-today) {
@@ -16,24 +13,26 @@
 }
 
 .name {
+  composes: heading from '../styles/shared/typography.css';
   margin: 0;
-  font: 500 13px @FontHeading;
+  font-weight: 500;
+  font-size: 13px;
   text-align: center;
   text-transform: uppercase;
   padding: 15px 0 5px;
 }
 
 :global(.is-today) .name {
-  color: fade(white, 50%);
+  color: rgba(255,255,255, .5);
 }
 
 .hours {
   text-align: center;
   padding-bottom: .4em;
-  border-bottom: 1px solid @ColorHeading;
+  border-bottom: 1px solid #caf;
   font-size: 1.7em;
 }
 
 :global(.is-today) .hours {
-  border-color: fade(white, 30%);
+  border-color: rgba(255,255,255, .3);
 }
