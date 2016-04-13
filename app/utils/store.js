@@ -7,6 +7,10 @@ const [, MON, TUE, WED, THU, FRI] = DAYS;
 // FIXME exported actions
 // TODO testing
 
+export function clear() {
+  localStorage.clear();
+}
+
 export function deserialize() {
   console.debug('@store deserialize');
   const serialized = localStorage.getItem(SERIALIZATION_KEY);
