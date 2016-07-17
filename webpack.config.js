@@ -5,9 +5,11 @@ const path = require('path');
 const package_ = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const __environment = process.env.NODE_ENV || 'development'
+
 module.exports = {
-  context: path.join(__dirname, 'app'),
-  entry: './index.js',
+  context: __dirname,
+  entry: './app/index.js',
   devtool: 'source-map',
 
   resolve: {
@@ -31,10 +33,12 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(__environment)
+    }),
     new HtmlWebpackPlugin({
       title: `${package_.name} v${package_.version}`,
-      favicon: path.join(__dirname, 'app/images/favicon.png')
+      favicon: 'app/images/favicon.png'
     })
   ]
 };
