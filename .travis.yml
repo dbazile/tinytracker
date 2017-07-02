@@ -2,3 +2,11 @@
 language: node_js
 node_js:
   - 5
+
+before_install:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+
+after_success:
+  - git rev-parse HEAD > dist/fingerprint.txt
+  - aws s3 sync dist/ s3://bazile.tinytracker/ --delete
