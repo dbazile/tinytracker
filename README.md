@@ -8,7 +8,7 @@ An over-engineered util that I use to keep track of my hours to make timekeeping
 
 I suppose I _could_ just use pen and paper...
 
-http://tinytracker.andsoitcontinues.com/
+https://tinytracker.dev.bazile.org/
 
 
 # Running
