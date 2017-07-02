@@ -3,6 +3,10 @@ language: node_js
 node_js:
   - 5
 
+cache:
+  directories:
+    $HOME/.local/bin
+
 before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
