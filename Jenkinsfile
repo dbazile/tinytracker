@@ -1,3 +1,5 @@
+library 'deployment'
+
 pipeline {
     agent any
 
