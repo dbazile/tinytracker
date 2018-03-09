@@ -30,6 +30,6 @@ pipeline {
 //          steps {
 //              deployApplication('tinytracker')
 //          }
-        }
+//      }
     }
 }
