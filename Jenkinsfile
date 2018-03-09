@@ -26,10 +26,10 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                deployApplication('tinytracker')
-            }
+//      stage('Deploy') {
+//          steps {
+//              deployApplication('tinytracker')
+//          }
         }
     }
 }
