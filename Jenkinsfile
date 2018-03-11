@@ -1,19 +1,11 @@
 library 'deployment'
 
 pipeline {
-    agent any
-
-    tools {
-        nodejs 'nodejs'
+    agent {
+        docker image: 'node:9'
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git 'git://github.com/dbazile/tinytracker'
-            }
-        }
-
         stage('Install dependencies') {
             steps {
                 sh 'npm install'
