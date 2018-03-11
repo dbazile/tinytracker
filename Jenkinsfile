@@ -2,7 +2,7 @@ library 'deployment'
 
 pipeline {
     agent {
-        docker image: 'node:9.1', args: '-u root'
+        docker image: 'node:9.1', args: '-u root'  // foo
     }
 
     stages {
