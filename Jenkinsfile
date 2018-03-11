@@ -3,7 +3,7 @@ library 'deployment'
 pipeline {
     agent {
         docker {
-            image 'node:9.1'
+            image 'node:9.2'
             args '-e HOME=$HOME -v $HOME:$HOME -v /etc/passwd:/etc/passwd:ro'
         }
     }
