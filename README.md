@@ -1,6 +1,6 @@
 # tinytracker
 
-[![Build Status](https://travis-ci.org/dbazile/tinytracker.svg?branch=master)](https://travis-ci.org/dbazile/tinytracker)
+![Build Status](https://dev.bazile.org/ci/status/tinytracker.svg)
 
 ![screenshot](/screenshot.png)
 
