@@ -4,7 +4,7 @@ pipeline {
     agent {
         docker {
             image 'node:9.1'
-            args '-e HOME=.'
+            args '-e HOME=$HOME -v $HOME:$HOME -v /etc/passwd:/etc/passwd:ro'
         }
     }
 
