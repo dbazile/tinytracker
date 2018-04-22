@@ -9,7 +9,7 @@ node {
         }
 
         stage('Test') {
-            sh 'yarn run test'
+            sh 'yarn test'
         }
     }
 

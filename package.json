@@ -6,7 +6,7 @@
     "build": "NODE_ENV=production webpack --colors --progress",
     "test": "eslint webpack.config.js app/**/*.{js,jsx} && mocha",
     "watch": "webpack-dev-server --colors --hot --inline",
-    "heroku-postbuild": "npm install --only=dev && webpack --color"
+    "heroku-postbuild": "yarn install --prod=false && webpack --color"
   },
   "author": "David Bazile",
   "license": "ISC",
