@@ -1,30 +1,19 @@
 library 'deployment'
 
-pipeline {
-    agent {
-        docker {
-            image 'node:9.2'
-            args '-e HOME=$HOME -v $HOME:$HOME -v /etc/passwd:/etc/passwd:ro'
-        }
-    }
+node {
+    checkout scm
 
-    stages {
+    withDockerContainer(image: 'node:9.2', args: '-e HOME=$WORKSPACE') {
         stage('Install dependencies') {
-            steps {
-                sh 'npm install'
-            }
+            sh 'yarn install'
         }
 
         stage('Test') {
-            steps {
-                sh 'npm test'
-            }
+            sh 'yarn run test'
         }
+    }
 
-        stage('Deploy') {
-            steps {
-                deployApplication('tinytracker')
-            }
-        }
+    stage('Deploy') {
+        deployApplication('tinytracker')
     }
 }
