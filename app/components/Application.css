@@ -9,28 +9,69 @@
   margin-top: .5em;
 }
 
-.reset {
-  position: absolute;
+.controls {
+  position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: white;
-  padding: .7em 2em;
-  color: #caf;
-  border: 1px solid;
+}
+
+.control {
+  border: none;
+  padding: 1em;
+  line-height: 1em;
   border-radius: 3px;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 500;
-  transition: .1s ease all;
-}
-
-.reset:hover {
-  background-color: hsla(270, 75%, 75%, .2);
-}
-
-.reset:active {
-  transform: translate(0, 2px);
-  border-color: #caf;
-  background-color: #caf;
+  transition: .1s ease;
+  transition-property: background-color, color;
   color: white;
+}
+
+.control + .control {
+  margin-left: 1em;
+}
+
+.isDisabled {
+  opacity: .2 !important;
+  cursor: not-allowed !important;
+}
+
+.control:not(.isDisabled):hover {
+  opacity: 1;
+}
+
+.control:not(.isDisabled):active {
+  transform: translateY(2px);
+}
+
+.growButton,
+.shrinkButton,
+.resetButton {
+  composes: control;
+}
+
+.growButton {
+  background-color: #0c0;
+}
+
+.shrinkButton {
+  background-color: #c00;
+}
+
+.resetButton {
+  color: #aaa;
+  background-color: #f8f8f8;
+}
+
+.resetButton:hover {
+  background-color: #f0f0f0;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
 }

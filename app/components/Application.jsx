@@ -17,22 +17,45 @@ export default class Application extends Component {
     return (
       <div className={styles.root}>
         <h1>tinytracker</h1>
+
         <Week days={this.state.days} changed={this._daysChanged}/>
-        <footer className={styles.metrics}>
+
+        <div className={styles.metrics}>
           <HoursRequired hours={this.state.requiredHours} changed={this._requiredHoursChanged}/>
           <HoursRemaining worked={this._hoursWorked} required={this.state.requiredHours}/>
-          <button className={styles.reset} onClick={this._reset}>Reset</button>
+        </div>
+
+        <footer className={styles.controls}>
+          <button className={styles.growButton} onClick={this._grow}><span className={styles.icon}>+</span></button>
+          <button className={`${styles.shrinkButton} ${this._canShrink ? '' : styles.isDisabled}`} onClick={this._shrink}><span className={styles.icon}>&ndash;</span></button>
+          <button className={styles.resetButton} onClick={this._reset}>Reset</button>
         </footer>
       </div>
     );
+  }
+
+  get _canShrink() {
+    return !this.state.days.some(d => d.times.slice(-1).some(t => t.some(Boolean)));
   }
 
   get _hoursWorked() {
     return this.state.days.reduce((sum, day) => sum + aggregate(day.times), 0.0);
   }
 
+  get _rows() {
+    return this.state.days.reduce((count, day) => Math.max(count, day.times.length), 0)
+  }
+
   _daysChanged = (days) => {
     this.setState({days});
+  }
+
+  _grow = () => {
+    this.setState({
+      days: this.state.days.map(d => Object.assign({}, d, {
+        times: [...d.times, []]
+      }))
+    });
   }
 
   _requiredHoursChanged = (value) => {
@@ -42,5 +65,17 @@ export default class Application extends Component {
   _reset = () => {
     clear();
     this.setState(deserialize());
+  }
+
+  _shrink = () => {
+    if (!this._canShrink) {
+      return;
+    }
+
+    this.setState({
+      days: this.state.days.map(d => Object.assign({}, d, {
+        times: d.times.slice(0, -1)
+      }))
+    });
   }
 }
