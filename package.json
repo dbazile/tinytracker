@@ -1,6 +1,6 @@
 {
   "name": "tinytracker",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Just a way for me to track my hours to enter into my timekeeping system.",
   "scripts": {
     "build": "NODE_ENV=production webpack --colors --progress",
