@@ -7,12 +7,7 @@ import {aggregate} from '../utils/time';
 import {clear, deserialize, serialize} from '../utils/store';
 
 export default class Application extends Component {
-  constructor() {
-    super();
-    this._daysChanged = this._daysChanged.bind(this);
-    this._requiredHoursChanged = this._requiredHoursChanged.bind(this);
-    this.state = deserialize();
-  }
+  state = deserialize();
 
   componentDidUpdate() {
     serialize(this.state);
@@ -26,7 +21,7 @@ export default class Application extends Component {
         <footer className={styles.metrics}>
           <HoursRequired hours={this.state.requiredHours} changed={this._requiredHoursChanged}/>
           <HoursRemaining worked={this._hoursWorked} required={this.state.requiredHours}/>
-          <button className={styles.reset} onClick={() => this._reset()}>Reset</button>
+          <button className={styles.reset} onClick={this._reset}>Reset</button>
         </footer>
       </div>
     );
@@ -36,15 +31,15 @@ export default class Application extends Component {
     return this.state.days.reduce((sum, day) => sum + aggregate(day.times), 0.0);
   }
 
-  _daysChanged(days) {
+  _daysChanged = (days) => {
     this.setState({days});
   }
 
-  _requiredHoursChanged(value) {
+  _requiredHoursChanged = (value) => {
     this.setState({requiredHours: parseFloat(value)});
   }
 
-  _reset() {
+  _reset = () => {
     clear();
     this.setState(deserialize());
   }
