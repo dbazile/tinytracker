@@ -38,7 +38,8 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: `${package_.name} v${package_.version}`,
-      favicon: 'app/images/favicon.png'
+      favicon: 'app/images/favicon.png',
+      hash: true,
     })
   ]
 };
