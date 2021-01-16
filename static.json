@@ -1,6 +1,6 @@
 {
-    "root": "dist/",
+    "root": "public/",
     "routes": {
-        "/**": "index.html"
+        "/lib/vue.esm-browser.js": "/lib/vue.esm-browser.prod.js"
     }
 }

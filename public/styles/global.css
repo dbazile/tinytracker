@@ -6,41 +6,42 @@
 
 a,
 button {
-  cursor: pointer;
-  outline: none;
+    cursor: pointer;
+    outline: none;
 }
 
 /* Colors
    ========================================================================= */
 
 html {
-  background-color: white;
-  color: #555;
+    background-color: white;
+    color: #555;
 }
 
 a {
-  color: lime;
+    color: lime;
 }
 
 h1,
 h2,
 h3 {
-  color: #caf;
+    color: #caf;
 }
 
 /* Typography
    ========================================================================= */
 
 html {
-  font-family: -apple-system, Helvetica Neue, sans-serif;
-  font-size: 16px;
+    font-family: -apple-system, Helvetica Neue, sans-serif;
+    font-size: 16px;
 }
 
 h1,
 h2,
-h3 {
-  font-family: -apple-system, Helvetica Neue, sans-serif;
-  font-weight: 200;
+h3,
+.heading {
+    font-family: -apple-system, Helvetica Neue, sans-serif;
+    font-weight: 200;
 }
 
 /* =========================================================================
@@ -48,12 +49,6 @@ h3 {
    ========================================================================= */
 
 body {
-  margin: 20px;
-  cursor: default;
+    margin: 20px;
+    cursor: default;
 }
-
-/* =========================================================================
-   Shared Styles
-   ========================================================================= */
-
-@import './shared/typography.css';

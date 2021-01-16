@@ -1,0 +1,19 @@
+.HoursRemaining {
+    padding: .5em;
+    transition: .2s ease-in-out background-color;
+}
+
+.HoursRemaining--overtime {
+    background-color: red;
+    color: white;
+}
+
+.HoursRemaining__hours {
+    margin-right: 5px;
+    width: 50px;
+    display: inline-block;
+    text-align: right;
+    font-family: Fira Code, monospace;
+    font-weight: bold;
+    color: #999;
+}

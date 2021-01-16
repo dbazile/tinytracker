@@ -14,20 +14,5 @@ https://tinytracker.dev.bazile.org/
 # Running
 
 ```
-$ npm install
-$ npm run watch
-```
-
-
-# Building
-
-```
-$ npm run build
-```
-
-
-# Testing
-
-```
-$ npm run test
+$ ./scripts/develop.sh
 ```

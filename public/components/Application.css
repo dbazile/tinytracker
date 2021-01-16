@@ -1,0 +1,71 @@
+.Application {}
+
+.Application__metrics {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.Application__metrics :nth-child(2) {
+    margin-top: .5em;
+}
+
+.Application__controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.Application__button {
+    border: none;
+    padding: 1em;
+    line-height: 1em;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    transition: .1s ease;
+    transition-property: background-color, color;
+    color: white;
+}
+
+.Application__button + .Application__button {
+    margin-left: 1em;
+}
+
+.Application__button--isDisabled {
+    opacity: .2 !important;
+    cursor: not-allowed !important;
+}
+
+.Application__button:not(.Application__button--isDisabled):hover {
+    opacity: 1;
+}
+
+.Application__button:not(.Application__button--isDisabled):active {
+    transform: translateY(2px);
+}
+
+.Application__growButton {
+    background-color: #0c0;
+}
+
+.Application__shrinkButton {
+    background-color: #c00;
+}
+
+.Application__resetButton {
+    color: #aaa;
+    background-color: #f8f8f8;
+}
+
+.Application__resetButton:hover {
+    background-color: #f0f0f0;
+}
+
+.Application__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+}

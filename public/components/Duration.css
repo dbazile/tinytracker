@@ -1,0 +1,53 @@
+.Duration {
+    display: flex;
+}
+
+.Duration__time,
+.Duration__hours {
+    flex: 3;
+}
+
+.Duration__time {
+    min-width: 1px;
+    border: 2px solid transparent;
+    margin: 0;
+    background-color: transparent;
+    padding: .5em;
+    font-family: Fira Code, monospace;
+    font-weight: bold;
+    font-size: 14px;
+    outline: white;
+    width: 100%;
+    border-radius: 2px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.Duration__time::placeholder {
+    color: black;
+    opacity: .07;
+}
+
+.Duration__time:hover {
+    background-color: rgba(0,255,0, .05);
+}
+
+.Duration__time:focus {
+    border: 2px solid green;
+    box-shadow: 2px 2px rgba(0,0,0, .1);
+}
+
+.Day--isToday .Duration__time {
+    color: white;
+}
+
+.Day--isToday .Duration:focus {
+    border-color: white;
+}
+
+.Duration__hours {
+    width: 10em;
+    text-align: center;
+    padding: .5em;
+    opacity: .4;
+}

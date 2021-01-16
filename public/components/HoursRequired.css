@@ -1,0 +1,39 @@
+.HoursRequired {
+    transition: .2s ease-in-out background-color;
+}
+
+.HoursRequired label {
+    display: block;
+    padding: .5em;
+}
+
+.HoursRequired--irregular {
+    background-color: #fe5;
+}
+
+.HoursRequired__hours {
+    display: inline-block;
+    margin-right: 5px;
+    width: 50px;
+    padding: 0;
+    border: 0;
+    line-height: inherit;
+    background-color: transparent;
+    text-align: right;
+    font-family: Fira Code, monospace;
+    font-size: inherit;
+    font-weight: bold;
+    color: #000;
+    outline: none;
+}
+
+/* Hide number spinner buttons */
+.HoursRequired__hours {
+    -moz-appearance: textfield;
+}
+.HoursRequired__hours::-webkit-outer-spin-button,
+.HoursRequired__hours::-webkit-inner-spin-button {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    margin: 0;
+}
