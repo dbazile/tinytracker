@@ -1,0 +1,37 @@
+daemon off;
+worker_processes auto;
+
+events {
+    use epoll;
+    accept_mutex on;
+    worker_connections 1024;
+}
+
+http {
+    gzip on;
+    gzip_comp_level 6;
+    gzip_min_length 512;
+    gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_vary on;
+
+    server_tokens off;
+
+    access_log logs/nginx/access.log;
+    error_log logs/nginx/error.log;
+
+    include mime.types;
+    default_type application/octet-stream;
+    sendfile off;
+
+    server {
+        listen <%= ENV["PORT"] %>;
+        charset UTF-8;
+        keepalive_timeout 5;
+        port_in_redirect off;
+
+        root /app/public;
+
+        # Use minified/optimized versions of libraries
+        rewrite /lib/vue.esm-browser.js /lib/vue.esm-browser.prod.js;
+    }
+}
