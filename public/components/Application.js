@@ -5,7 +5,20 @@ import Week from '/components/Week.js'
 import * as time from '/utils/time.js'
 
 
-const KEY_STATE = 'state'
+const DEFAULT_STATE = () => ({
+    days: [
+        {name: time.MONDAY,    times: [[], [], [], [], []]},
+        {name: time.TUESDAY,   times: [[], [], [], [], []]},
+        {name: time.WEDNESDAY, times: [[], [], [], [], []]},
+        {name: time.THURSDAY,  times: [[], [], [], [], []]},
+        {name: time.FRIDAY,    times: [[], [], [], [], []]},
+    ],
+    pomodoro: {
+        startTime: null,
+        timers: [],
+    },
+    requiredHours: 40,
+})
 
 
 export default {
@@ -120,11 +133,12 @@ export default {
 //
 
 function deserialize() {
-    const serialized = localStorage.getItem(KEY_STATE)
+    const defaults = DEFAULT_STATE()
+    const serialized = localStorage.getItem('state')
     if (serialized) {
         console.debug('[Application] deserialize:\n---\n%s\n---', serialized)
         try {
-            return JSON.parse(serialized)
+            return {...defaults, ...JSON.parse(serialized)}
         }
         catch (err) {
             console.warn('[Application] deserialize failed:', err)
@@ -132,20 +146,7 @@ function deserialize() {
         }
     }
 
-    return {
-        days: [
-            {name: time.MONDAY,    times: [[], [], [], [], []]},
-            {name: time.TUESDAY,   times: [[], [], [], [], []]},
-            {name: time.WEDNESDAY, times: [[], [], [], [], []]},
-            {name: time.THURSDAY,  times: [[], [], [], [], []]},
-            {name: time.FRIDAY,    times: [[], [], [], [], []]},
-        ],
-        pomodoro: {
-            startTime: null,
-            timers: [],
-        },
-        requiredHours: 40,
-    }
+    return defaults
 }
 
 
@@ -156,5 +157,5 @@ function serialize(state) {
         requiredHours: state.requiredHours,
     })
     console.debug('[Application] serialize:', JSON.parse(serialized)/* <-- strips Vue wrappers */)
-    localStorage.setItem(KEY_STATE, serialized)
+    localStorage.setItem('state', serialized)
 }
