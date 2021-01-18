@@ -21,7 +21,7 @@
     font-size: 14px;
 }
 
-@keyframes blink {
+@keyframes timer-blink {
     from { background-color: var(--COLOR_TASK_BG); }
     to { background-color: var(--COLOR_COMPLETE_BG); }
 }
@@ -97,7 +97,7 @@
 }
 
 .Pomodoro__puck--isActive {
-    animation: blink linear 1s alternate infinite;
+    animation: timer-blink linear 1s alternate infinite;
 }
 
 
@@ -136,7 +136,7 @@
 }
 
 .Pomodoro__timer--isActive {
-    animation: blink linear 1s alternate infinite;
+    animation: timer-blink linear 1s alternate infinite;
 }
 
 .Pomodoro__timerMinutes,
@@ -189,6 +189,23 @@
     cursor: pointer;
 }
 
+.Pomodoro__totalDuration {
+    padding: 5px;
+    border-top: 1px solid white;
+    font-size: 12px;
+    font-style: italic;
+    text-align: center;
+    background-color: hsl(225, 30%, 30%);
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.Pomodoro__totalDuration:before {
+    content: '~ ';
+}
+
+.Pomodoro__totalDuration:after {
+    content: ' ~';
+}
 
 /* =========================================================================
    Footer
@@ -203,30 +220,41 @@
     color: var(--COLOR_FOOTER_FG);
 }
 
-.Pomodoro__footer .Pomodoro__button {
+.Pomodoro__footerButton {
     padding: 10px;
     border: none;
     background-color: transparent;
+    color: inherit;
     font-family: inherit;
     font-size: 12px;
     font-weight: bold;
-    color: inherit;
 }
 
-.Pomodoro__footer .Pomodoro__button:hover {
+.Pomodoro__footerButton:hover {
     background-color: rgba(255, 255, 255, .3);
 }
 
-.Pomodoro__footer .Pomodoro__button:disabled {
-    background-color: var(--COLOR_FOOTER_BG) !important;
+.Pomodoro__footerButton:disabled {
+    background-color: var(--COLOR_FOOTER_BG);
     color: rgba(255, 255, 255, .3);
     cursor: not-allowed;
 }
 
-.Pomodoro__footer .Pomodoro__button + .Pomodoro__button {
-    margin-left: 5px;
-}
-
 .Pomodoro__fillButton {
     margin-right: auto;
+}
+
+.Pomodoro__addTimerButton {
+    margin: 5px 5px 5px 0;
+    width: 10px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid;
+}
+
+.Pomodoro--isRunning .Pomodoro__startStopButton {
+    color: var(--COLOR_COMPLETE_BG);
 }

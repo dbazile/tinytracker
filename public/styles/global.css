@@ -39,7 +39,7 @@ h3 {
    ========================================================================= */
 
 html {
-    font-family: -apple-system, Helvetica Neue, sans-serif;
+    font-family: -apple-system, Roboto, Open Sans, Helvetica Neue, sans-serif;
     font-size: 16px;
 }
 
@@ -47,7 +47,7 @@ h1,
 h2,
 h3,
 .heading {
-    font-family: -apple-system, Helvetica Neue, sans-serif;
+    font-family: -apple-system, Roboto, Open Sans, Helvetica Neue, sans-serif;
     font-weight: 200;
 }
 

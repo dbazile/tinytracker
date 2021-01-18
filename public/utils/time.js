@@ -44,12 +44,17 @@ export function formatDuration(ms) {
     // Round to nearest second
     value = Math.round(value / 1000) * 1000
 
+    const hours = Math.floor(value / HOURS)
+    value -= hours * HOURS
+
     const minutes = Math.floor(value / MINUTES)
     value -= minutes * MINUTES
 
     const seconds = Math.floor(value / SECONDS)
 
-    return `${minutes}:${seconds.toString().padStart(2, 0)}`
+    return hours
+        ? `${hours}:${minutes.toString().padStart(2, 0)}:${seconds.toString().padStart(2, 0)}`
+        : `${minutes}:${seconds.toString().padStart(2, 0)}`
 }
 
 

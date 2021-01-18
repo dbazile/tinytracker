@@ -1,6 +1,7 @@
 .Application {}
 
 .Application__header {
+    margin-bottom: 15px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -8,7 +9,7 @@
 }
 
 .Application__header h1 {
-    margin: 0 0 15px;
+    margin: 0;
 }
 
 .Application__metrics {

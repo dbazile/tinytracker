@@ -5,7 +5,10 @@ const DURATION_BREAK_SHORT =  5 * time.MINUTES
 const DURATION_BREAK_LONG  = 30 * time.MINUTES
 const TICK_INTERVAL        =  1 * time.SECONDS
 
+const KEY_STOP_SOUND       = 'k'
 const KEY_TOGGLE_EXPAND    = 'p'
+const SOUND_COMPLETE       = new Audio('/sounds/fanfare/fanfare.mp3')
+const SOUND_STARTSTOP      = new Audio('/sounds/click/click.mp3')
 
 
 export default {
@@ -23,7 +26,7 @@ export default {
         >
             <div class="Pomodoro__header" @click="toggleExpand">
                 <div class="Pomodoro__activeTimer" :title="activeTimer?.text">
-                    {{timers.length
+                    \u{1F345} {{timers.length
                         ? activeTimer
                             ? activeTimer.text || '(Break)'
                             : 'not running'
@@ -76,17 +79,18 @@ export default {
                         :value="timer.duration / MINUTES"
                         @input="onTimerDurationChange(i, $event.target.value)"
                     />
-                    <div class="Pomodoro__button Pomodoro__timerRemoveButton" @click="remove(i)" title="Remove">x</div>
+                    <div class="Pomodoro__timerRemoveButton" @click="remove(i)" title="Remove">\u2716</div>
                 </li>
+                <li class="Pomodoro__totalDuration">{{totalDuration}}</li>
             </ul>
 
             <div class="Pomodoro__footer" v-if="isExpanded">
-                <button :disabled="!timers.length" class="Pomodoro__button Pomodoro__startStopButton" @click="toggleStartStop">{{activeTimer ? 'Stop' : 'Start'}}</button>
-                <button :disabled="!timers.length" class="Pomodoro__button Pomodoro__clearButton" @click="clear">Clear</button>
-                <button class="Pomodoro__button Pomodoro__fillButton" @click="fill">Fill</button>
-                <button class="Pomodoro__button Pomodoro__addTaskButton" @click="add(25, 'Task')">+Task</button>
-                <button class="Pomodoro__button Pomodoro__addBreakButton" @click="add(5)">+5</button>
-                <button class="Pomodoro__button Pomodoro__addBreakButton" @click="add(30)">+30</button>
+                <button class="Pomodoro__footerButton Pomodoro__startStopButton" :disabled="!timers.length" @click="toggleStartStop">\u23FB</button>
+                <button class="Pomodoro__footerButton Pomodoro__clearButton" :disabled="!timers.length" @click="clear">Clear</button>
+                <button class="Pomodoro__footerButton Pomodoro__fillButton" @click="fill">Fill</button>
+                <button class="Pomodoro__footerButton Pomodoro__addTimerButton" @click="add(5)">+5</button>
+                <button class="Pomodoro__footerButton Pomodoro__addTimerButton" @click="add(25)">+25</button>
+                <button class="Pomodoro__footerButton Pomodoro__addTimerButton" @click="add(30)">+30</button>
             </div>
         </div>
     `,
@@ -106,6 +110,10 @@ export default {
         activeTimer() {
             return this.timers[this.activeIndex]
         },
+
+        totalDuration() {
+            return time.formatDuration(this.timers.reduce((sum, t) => t.complete ? sum : sum + t.duration, 0))
+        },
     },
 
     mounted() {
@@ -122,15 +130,19 @@ export default {
             if (event.key === KEY_TOGGLE_EXPAND) {
                 this.toggleExpand()
             }
+
+            if (event.key === KEY_STOP_SOUND) {
+                this.stopAudio(SOUND_COMPLETE)
+            }
         })
     },
 
     methods: {
-        add(minutes, text) {
+        add(minutes) {
             this.$emit('changed', [...this.timers, {
                 duration: minutes * time.MINUTES,
                 complete: false,
-                text:     text || '',
+                text:     '',
             }])
         },
 
@@ -140,8 +152,6 @@ export default {
         },
 
         fill() {
-            this.stop()
-            this.$emit('stopped', Date.now())
             this.$emit('changed', [
                 {duration: DURATION_TASK,        complete: false, text: 'Task 1'},
                 {duration: DURATION_BREAK_SHORT, complete: false, text: ''},
@@ -157,7 +167,6 @@ export default {
 
                 {duration: DURATION_BREAK_LONG,  complete: false, text: ''},
             ])
-            this.$emit('started', Date.now())
         },
 
         markComplete(index) {
@@ -174,6 +183,11 @@ export default {
 
         onTimerTextChange(index, text) {
             this.$emit('changed', this.timers.map((t, i) => i === index ? {...t, text} : t))
+        },
+
+        playAudio(audio) {
+            audio.fastSeek(0)
+            audio.play()
         },
 
         remove(index) {
@@ -198,6 +212,9 @@ export default {
             this.$emit('started', Date.now())
             this.ticker = setInterval(this.tick, TICK_INTERVAL)
             this.tick()
+
+            // Make some noise
+            this.playAudio(SOUND_STARTSTOP)
         },
 
         stop() {
@@ -208,6 +225,14 @@ export default {
             this.ticker = null
             this.clock = null
             this.$emit('stopped')
+
+            // Make some noise
+            this.playAudio(SOUND_STARTSTOP)
+        },
+
+        stopAudio(audio) {
+            audio.pause()
+            audio.fastSeek(0)
         },
 
         tick() {
@@ -228,6 +253,9 @@ export default {
 
             // Deactivate timer
             this.markComplete(this.activeIndex)
+
+            // Make some noise
+            this.playAudio(SOUND_COMPLETE)
 
             // Advance to the next timer if available
             const nextIndex = this.timers.findIndex((t, i) => i !== this.activeIndex && !t.complete)
@@ -252,6 +280,21 @@ export default {
             }
             else {
                 this.start()
+            }
+        },
+    },
+
+    watch: {
+        timers(next, prev) {
+            if (!this.startTime) {
+                // Not running
+                return
+            }
+
+            if (next.length != prev.length) {
+                const newIndex = this.timers.findIndex(t => !t.complete)
+                console.debug('[Pomodoro] reset activeIndex: was=%s new=%s', this.activeIndex, newIndex)
+                this.activeIndex = newIndex
             }
         },
     },
