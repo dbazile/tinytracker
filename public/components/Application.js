@@ -40,7 +40,7 @@ export default {
 
     computed: {
         canShrink() {
-            return this.days.length > 1 && !this.days.some(d => d.times.slice(-1).some(t => t.some(Boolean)))
+            return this.days.every(d => d.times.length > 1 && !d.times.slice(-1).some(t => t.some(Boolean)))
         },
 
         hoursWorked() {
