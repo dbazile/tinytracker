@@ -1,0 +1,232 @@
+.Pomodoro {
+    --COLOR_HEADER_BG:   hsl(235, 40%, 93%);
+    --COLOR_HEADER_FG:   hsl(235, 40%, 53%);
+    --COLOR_CLOCK_BG:    hsl(235, 80%, 65%);
+    --COLOR_FOOTER_BG:   hsl(225, 50%, 45%);
+    --COLOR_FOOTER_FG:   white;
+    --COLOR_TASK_BG:     hsl(225, 45%, 57%);
+    --COLOR_TASK_FG:     white;
+    --COLOR_BREAK_BG:    hsl(225, 45%, 67%);
+    --COLOR_BREAK_FG:    hsl(225, 45%, 80%);
+    --COLOR_COMPLETE_BG: hsl(165, 65%, 50%);
+    --COLOR_COMPLETE_FG: white;
+
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 200px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    font-size: 14px;
+}
+
+@keyframes blink {
+    from { background-color: var(--COLOR_TASK_BG); }
+    to { background-color: var(--COLOR_COMPLETE_BG); }
+}
+
+
+/* =========================================================================
+   Header
+   ========================================================================= */
+
+.Pomodoro__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    cursor: pointer;
+    background-color: var(--COLOR_HEADER_BG);
+    color: var(--COLOR_HEADER_FG);
+}
+
+.Pomodoro__activeTimer {
+    padding: 10px;
+    flex: 1;
+}
+
+.Pomodoro--isEmpty .Pomodoro__activeTimer {
+    font-style: italic;
+}
+
+.Pomodoro__clock {
+    width: 3em;
+    padding: 10px;
+    background-color: var(--COLOR_CLOCK_BG);
+    opacity: .3;
+    color: white;
+    text-align: center;
+    font-family: Fira Code, monospace;
+    font-weight: bold;
+}
+
+.Pomodoro--isRunning .Pomodoro__clock {
+    opacity: 1;
+}
+
+/* =========================================================================
+   Track
+   ========================================================================= */
+
+.Pomodoro__track {
+    display: flex;
+    height: 3px;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+
+.Pomodoro__puck {
+    flex: 1;
+    background-color: var(--COLOR_TASK_BG);
+}
+
+.Pomodoro__puck + .Pomodoro__puck {
+    margin-left: 2px;
+}
+
+.Pomodoro__puck--isBreak {
+    background-color: var(--COLOR_BREAK_BG);
+}
+
+.Pomodoro__puck--isComplete {
+    background-color: var(--COLOR_COMPLETE_BG);
+}
+
+.Pomodoro__puck--isActive {
+    animation: blink linear 1s alternate infinite;
+}
+
+
+/* =========================================================================
+   Body
+   ========================================================================= */
+
+.Pomodoro__body {
+    list-style: none;
+    width: 400px;
+    margin: 0;
+    padding: 0;
+}
+
+.Pomodoro__timer {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    background-color: var(--COLOR_TASK_BG);
+    color: var(--COLOR_TASK_FG);
+}
+
+.Pomodoro__timer + .Pomodoro__timer {
+    border-top: 1px solid white;
+}
+
+.Pomodoro__timer--isBreak {
+    background-color: var(--COLOR_BREAK_BG);
+    color: var(--COLOR_BREAK_FG);
+}
+
+.Pomodoro__timer--isComplete {
+    background-color: var(--COLOR_COMPLETE_BG);
+    color: var(--COLOR_COMPLETE_FG);
+}
+
+.Pomodoro__timer--isActive {
+    animation: blink linear 1s alternate infinite;
+}
+
+.Pomodoro__timerMinutes,
+.Pomodoro__timerText {
+    z-index: 2;
+    padding: 10px;
+    border: none;
+    border-radius: none;
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+}
+
+.Pomodoro__timerMinutes:hover,
+.Pomodoro__timerText:hover {
+    background-color: hsla(140, 100%, 60%, 0.1);
+}
+
+.Pomodoro__timerMinutes:focus,
+.Pomodoro__timerText:focus {
+    background-color: hsla(140, 100%, 60%, 0.2);
+    box-shadow: 0 0 0 2px hsl(140, 100%, 60%),
+                2px 2px 0 2px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+}
+
+.Pomodoro__timer--isBreak .Pomodoro__timerText,
+.Pomodoro__timer--isBreak .Pomodoro__timerMinutes {
+    font-style: italic;
+}
+
+.Pomodoro__timerText {
+    flex: 1;
+    padding: 5px;
+}
+
+.Pomodoro__timerMinutes {
+    width: 2.5em;
+    text-align: right;
+}
+
+.Pomodoro__timerRemoveButton {
+    width: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f06;
+    color: white;
+    cursor: pointer;
+}
+
+
+/* =========================================================================
+   Footer
+   ========================================================================= */
+
+.Pomodoro__footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: var(--COLOR_FOOTER_BG);
+    border-top: 1px solid white;
+    color: var(--COLOR_FOOTER_FG);
+}
+
+.Pomodoro__footer .Pomodoro__button {
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    color: inherit;
+}
+
+.Pomodoro__footer .Pomodoro__button:hover {
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.Pomodoro__footer .Pomodoro__button:disabled {
+    background-color: var(--COLOR_FOOTER_BG) !important;
+    color: rgba(255, 255, 255, .3);
+    cursor: not-allowed;
+}
+
+.Pomodoro__footer .Pomodoro__button + .Pomodoro__button {
+    margin-left: 5px;
+}
+
+.Pomodoro__fillButton {
+    margin-right: auto;
+}

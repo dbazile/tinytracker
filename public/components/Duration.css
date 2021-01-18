@@ -13,7 +13,6 @@
     margin: 0;
     background-color: transparent;
     padding: .5em;
-    font-family: Fira Code, monospace;
     font-weight: bold;
     font-size: 14px;
     outline: white;
@@ -47,7 +46,7 @@
 
 .Duration__hours {
     width: 10em;
-    text-align: center;
+    text-align: right;
     padding: .5em;
     opacity: .4;
 }

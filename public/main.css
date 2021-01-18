@@ -1,7 +1,8 @@
 @import "/styles/global.css";
 @import "/components/Application.css";
-@import "/components/HoursRequired.css";
 @import "/components/HoursRemaining.css";
+@import "/components/HoursRequired.css";
 @import "/components/Week.css";
 @import "/components/Day.css";
 @import "/components/Duration.css";
+@import "/components/Pomodoro.css";

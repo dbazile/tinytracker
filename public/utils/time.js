@@ -37,6 +37,22 @@ export function diff([start, stop]) {
         : round((stopMs - startMs) / HOURS)
 }
 
+
+export function formatDuration(ms) {
+    let value = parseInt(ms, 10)
+
+    // Round to nearest second
+    value = Math.round(value / 1000) * 1000
+
+    const minutes = Math.floor(value / MINUTES)
+    value -= minutes * MINUTES
+
+    const seconds = Math.floor(value / SECONDS)
+
+    return `${minutes}:${seconds.toString().padStart(2, 0)}`
+}
+
+
 //
 // Internals
 //

@@ -10,10 +10,8 @@
 
 .HoursRemaining__hours {
     margin-right: 5px;
-    width: 50px;
+    width: 40px;
     display: inline-block;
     text-align: right;
     font-family: Fira Code, monospace;
-    font-weight: bold;
-    color: #999;
 }

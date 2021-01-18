@@ -1,5 +1,6 @@
-import HoursRequired from '/components/HoursRequired.js'
 import HoursRemaining from '/components/HoursRemaining.js'
+import HoursRequired from '/components/HoursRequired.js'
+import Pomodoro from '/components/Pomodoro.js'
 import Week from '/components/Week.js'
 import * as time from '/utils/time.js'
 
@@ -8,11 +9,20 @@ const KEY_STATE = 'state'
 
 
 export default {
-    components: {HoursRemaining, HoursRequired, Week},
+    components: {HoursRemaining, HoursRequired, Pomodoro, Week},
 
     template: `
         <div class="Application">
-            <h1>tinytracker</h1>
+            <header class="Application__header">
+                <h1>tinytracker</h1>
+                <Pomodoro
+                    :startTime="pomodoro.startTime"
+                    :timers="pomodoro.timers"
+                    @changed="onPomodoroTimersChange"
+                    @started="onPomodoroStart"
+                    @stopped="onPomodoroStop"
+                />
+            </header>
 
             <Week
                 :days="days"
@@ -61,6 +71,18 @@ export default {
             this.days = value
         },
 
+        onPomodoroStart(startTime) {
+            this.pomodoro = {...this.pomodoro, startTime}
+        },
+
+        onPomodoroStop() {
+            this.pomodoro = {...this.pomodoro, startTime: null}
+        },
+
+        onPomodoroTimersChange(timers) {
+            this.pomodoro = {...this.pomodoro, timers}
+        },
+
         onRequiredHoursChange(value) {
             this.requiredHours = value
         },
@@ -79,6 +101,10 @@ export default {
 
     watch: {
         days() {
+            serialize(this)
+        },
+
+        pomodoro() {
             serialize(this)
         },
 
@@ -114,6 +140,10 @@ function deserialize() {
             {name: time.THURSDAY,  times: [[], [], [], [], []]},
             {name: time.FRIDAY,    times: [[], [], [], [], []]},
         ],
+        pomodoro: {
+            startTime: null,
+            timers: [],
+        },
         requiredHours: 40,
     }
 }
@@ -122,6 +152,7 @@ function deserialize() {
 function serialize(state) {
     const serialized = JSON.stringify({
         days:          state.days,
+        pomodoro:      state.pomodoro,
         requiredHours: state.requiredHours,
     })
     console.debug('[Application] serialize:', JSON.parse(serialized)/* <-- strips Vue wrappers */)

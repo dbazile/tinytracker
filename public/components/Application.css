@@ -1,5 +1,16 @@
 .Application {}
 
+.Application__header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.Application__header h1 {
+    margin: 0 0 15px;
+}
+
 .Application__metrics {
     width: 300px;
     margin: 0 auto;

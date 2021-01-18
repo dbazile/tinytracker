@@ -1,14 +1,20 @@
 @viewport { width: device-width; }
 
+
 /* =========================================================================
    Base
    ========================================================================= */
+
+* {
+  box-sizing: content-box;
+}
 
 a,
 button {
     cursor: pointer;
     outline: none;
 }
+
 
 /* Colors
    ========================================================================= */
@@ -28,6 +34,7 @@ h3 {
     color: #caf;
 }
 
+
 /* Typography
    ========================================================================= */
 
@@ -44,6 +51,7 @@ h3,
     font-weight: 200;
 }
 
+
 /* =========================================================================
    Layout
    ========================================================================= */
@@ -51,4 +59,27 @@ h3,
 body {
     margin: 20px;
     cursor: default;
+}
+
+
+/* =========================================================================
+   Forms
+   ========================================================================= */
+
+input {
+    font-family: Fira Code, monospace;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Hide number spinner buttons */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+    -moz-appearance: textfield;
+    -webkit-appearance: none;
+    margin: 0;
 }
