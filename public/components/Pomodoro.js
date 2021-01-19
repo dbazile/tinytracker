@@ -120,11 +120,9 @@ export default {
 
     data() {
         return {
-            MINUTES: time.MINUTES,
-
             activeIndex: null,
             clock:       null,
-            isExpanded:  false,
+            isExpanded:  location.hash === '#pomodoro',
             ticker:      null,
         }
     },
@@ -138,6 +136,10 @@ export default {
             return Object.keys(ALARMS).sort()
         },
 
+        MINUTES() {
+            return time.MINUTES
+        },
+
         totalDuration() {
             return time.formatDuration(this.timers.reduce((sum, t) => t.complete ? sum : sum + t.duration, 0))
         },
@@ -147,6 +149,11 @@ export default {
         if (this.startTime) {
             this.start()
         }
+
+        // Listen for possible expansion toggling ¯\_(ツ)_/¯
+        window.addEventListener('hashchange', () => {
+            this.isExpanded = location.hash === '#pomodoro'
+        })
 
         // Listen for shortcut keys
         window.addEventListener('keypress', event => {
@@ -325,6 +332,7 @@ export default {
 
         toggleExpand() {
             this.isExpanded = !this.isExpanded
+            location.hash = this.isExpanded ? '#pomodoro' : ''
         },
 
         toggleStartStop() {
