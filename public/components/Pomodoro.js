@@ -10,6 +10,7 @@ const KEY_TOGGLE_START     = 'k'
 const KEY_TOGGLE_EXPAND    = 'p'
 
 const ALARMS = {
+    'Bell':       '/sounds/bell/bell.mp3',
     'Beep':       '/sounds/four-beeps/four-beeps.mp3',
     'Drum':       '/sounds/drum/drum.mp3',
     'Fanfare':    '/sounds/fanfare/fanfare.mp3',
