@@ -186,7 +186,7 @@ export default {
         },
 
         playAudio(audio) {
-            audio.fastSeek(0)
+            audio.currentTime = 0
             audio.play()
         },
 
@@ -232,7 +232,7 @@ export default {
 
         stopAudio(audio) {
             audio.pause()
-            audio.fastSeek(0)
+            audio.currentTime = 0
         },
 
         tick() {
