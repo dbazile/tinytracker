@@ -96,7 +96,7 @@ export default {
                 <li class="Pomodoro__alarms">
                     <div
                         v-for="key in alarms"
-                        @click="onAlarmChange(key)"
+                        @click="onAlarmClick(key)"
                         :class="{
                             'Pomodoro__alarm': true,
                             'Pomodoro__alarm--isSelected': key === alarm,
@@ -128,16 +128,16 @@ export default {
     },
 
     computed: {
+        MINUTES() {
+            return time.MINUTES
+        },
+
         activeTimer() {
             return this.timers[this.activeIndex]
         },
 
         alarms() {
             return Object.keys(ALARMS).sort()
-        },
-
-        MINUTES() {
-            return time.MINUTES
         },
 
         totalDuration() {
@@ -185,7 +185,10 @@ export default {
         },
 
         clear() {
-            this.stop()
+            if (this.activeTimer) {
+                this.stop()
+            }
+
             this.$emit('timers-changed', [])
         },
 
@@ -211,15 +214,14 @@ export default {
             this.$emit('timers-changed', this.timers.map((t, i) => i === index ? {...t, complete: true} : t))
         },
 
-        onAlarmChange(key) {
-            if (key === this.alarm) {
-                return  // Nothing to do
-            }
-
-            // Preview
+        onAlarmClick(key) {
+            // Preview selection
             this.playAudio(AUDIO_ALARM, ALARMS[key])
 
-            this.$emit('alarm-changed', key)
+            // Notify app if there's an actual change
+            if (key !== this.alarm) {
+                this.$emit('alarm-changed', key)
+            }
         },
 
         onTimerDurationChange(index, minutes) {
