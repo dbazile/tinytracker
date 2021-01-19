@@ -68,7 +68,7 @@ body {
 
 input {
     font-family: Fira Code, monospace;
-    font-size: 14px;
+    font-size: inherit;
     outline: none;
 }
 

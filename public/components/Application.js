@@ -14,6 +14,7 @@ const DEFAULT_STATE = () => ({
         {name: time.FRIDAY,    times: [[], [], [], [], []]},
     ],
     pomodoro: {
+        alarm: 'Beep',
         startTime: null,
         timers: [],
     },
@@ -29,9 +30,11 @@ export default {
             <header class="Application__header">
                 <h1>tinytracker</h1>
                 <Pomodoro
+                    :alarm="pomodoro.alarm"
                     :startTime="pomodoro.startTime"
                     :timers="pomodoro.timers"
-                    @changed="onPomodoroTimersChange"
+                    @alarm-changed="onPomodoroAlarmChange"
+                    @timers-changed="onPomodoroTimersChange"
                     @started="onPomodoroStart"
                     @stopped="onPomodoroStop"
                 />
@@ -82,6 +85,10 @@ export default {
 
         onDaysChange(value) {
             this.days = value
+        },
+
+        onPomodoroAlarmChange(alarm) {
+            this.pomodoro = {...this.pomodoro, alarm}
         },
 
         onPomodoroStart(startTime) {

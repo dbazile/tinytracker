@@ -5,16 +5,26 @@ const DURATION_BREAK_SHORT =  5 * time.MINUTES
 const DURATION_BREAK_LONG  = 30 * time.MINUTES
 const TICK_INTERVAL        =  1 * time.SECONDS
 
-const KEY_STOP_SOUND       = 'm'
+const KEY_SILENCE_ALARM    = 'm'
 const KEY_TOGGLE_START     = 'k'
 const KEY_TOGGLE_EXPAND    = 'p'
-const SOUND_COMPLETE       = new Audio(`/sounds/${location.search === '?ff' ? 'fanfare/fanfare' : 'four-beeps/four-beeps'}.mp3`)
-const SOUND_STARTSTOP      = new Audio('/sounds/click/click.mp3')
+
+const ALARMS = {
+    'Beep':       '/sounds/four-beeps/four-beeps.mp3',
+    'Drum':       '/sounds/drum/drum.mp3',
+    'Fanfare':    '/sounds/fanfare/fanfare.mp3',
+    'Flute':      '/sounds/flute-trill/flute-trill.mp3',
+}
+const SOUND_START          = '/sounds/ui/start.mp3'
+const SOUND_STOP           = '/sounds/ui/stop.mp3'
+
+const AUDIO_UI             = new Audio()
+const AUDIO_ALARM          = new Audio()
 
 
 export default {
-    props: ['startTime', 'timers'],
-    emits: ['changed', 'started', 'stopped'],
+    props: ['alarm', 'startTime', 'timers'],
+    emits: ['alarm-changed', 'timers-changed', 'started', 'stopped'],
 
     template: `
         <div
@@ -83,6 +93,18 @@ export default {
                     <div class="Pomodoro__timerRemoveButton" @click="remove(i)" title="Remove">\u2716</div>
                 </li>
                 <li class="Pomodoro__totalDuration">{{totalDuration}}</li>
+                <li class="Pomodoro__alarms">
+                    <div
+                        v-for="key in alarms"
+                        @click="onAlarmChange(key)"
+                        :class="{
+                            'Pomodoro__alarm': true,
+                            'Pomodoro__alarm--isSelected': key === alarm,
+                        }"
+                    >
+                        \u{1F50A} {{key}}
+                    </div>
+                </li>
             </ul>
 
             <div class="Pomodoro__footer" v-if="isExpanded">
@@ -112,6 +134,10 @@ export default {
             return this.timers[this.activeIndex]
         },
 
+        alarms() {
+            return Object.keys(ALARMS).sort()
+        },
+
         totalDuration() {
             return time.formatDuration(this.timers.reduce((sum, t) => t.complete ? sum : sum + t.duration, 0))
         },
@@ -129,8 +155,8 @@ export default {
             }
 
             switch (event.key) {
-                case KEY_STOP_SOUND:
-                    this.stopAudio(SOUND_COMPLETE)
+                case KEY_SILENCE_ALARM:
+                    this.silenceAlarm()
                     break
                 case KEY_TOGGLE_EXPAND:
                     this.toggleExpand()
@@ -144,7 +170,7 @@ export default {
 
     methods: {
         add(minutes) {
-            this.$emit('changed', [...this.timers, {
+            this.$emit('timers-changed', [...this.timers, {
                 duration: minutes * time.MINUTES,
                 complete: false,
                 text:     '',
@@ -153,11 +179,11 @@ export default {
 
         clear() {
             this.stop()
-            this.$emit('changed', [])
+            this.$emit('timers-changed', [])
         },
 
         fill() {
-            this.$emit('changed', [
+            this.$emit('timers-changed', [
                 {duration: DURATION_TASK,        complete: false, text: 'Task 1'},
                 {duration: DURATION_BREAK_SHORT, complete: false, text: ''},
 
@@ -175,28 +201,50 @@ export default {
         },
 
         markComplete(index) {
-            this.$emit('changed', this.timers.map((t, i) => i === index ? {...t, complete: true} : t))
+            this.$emit('timers-changed', this.timers.map((t, i) => i === index ? {...t, complete: true} : t))
+        },
+
+        onAlarmChange(key) {
+            if (key === this.alarm) {
+                return  // Nothing to do
+            }
+
+            // Preview
+            this.playAudio(AUDIO_ALARM, ALARMS[key])
+
+            this.$emit('alarm-changed', key)
         },
 
         onTimerDurationChange(index, minutes) {
-            this.$emit('changed', this.timers.map((t, i) => i === index ? {...t, duration: minutes * time.MINUTES } : t))
+            this.$emit('timers-changed', this.timers.map((t, i) => i === index ? {...t, duration: minutes * time.MINUTES } : t))
         },
 
         onTimerCompleteChange(index, complete) {
-            this.$emit('changed', this.timers.map((t, i) => i === index ? {...t, complete} : t))
+            this.$emit('timers-changed', this.timers.map((t, i) => i === index ? {...t, complete} : t))
         },
 
         onTimerTextChange(index, text) {
-            this.$emit('changed', this.timers.map((t, i) => i === index ? {...t, text} : t))
+            this.$emit('timers-changed', this.timers.map((t, i) => i === index ? {...t, text} : t))
         },
 
-        playAudio(audio) {
+        playAlarm() {
+            const uri = ALARMS[this.alarm] || ALARMS[this.alarms[0]]
+            this.playAudio(AUDIO_ALARM, uri)
+        },
+
+        playAudio(audio, uri) {
+            audio.src = uri
             audio.currentTime = 0
             audio.play()
         },
 
         remove(index) {
-            this.$emit('changed', this.timers.filter((_, i) => i !== index))
+            this.$emit('timers-changed', this.timers.filter((_, i) => i !== index))
+        },
+
+        silenceAlarm() {
+            AUDIO_ALARM.pause()
+            AUDIO_ALARM.currentTime = 0
         },
 
         start() {
@@ -219,7 +267,7 @@ export default {
             this.tick()
 
             // Make some noise
-            this.playAudio(SOUND_STARTSTOP)
+            this.playAudio(AUDIO_UI, SOUND_START)
         },
 
         stop() {
@@ -232,7 +280,7 @@ export default {
             this.$emit('stopped')
 
             // Make some noise
-            this.playAudio(SOUND_STARTSTOP)
+            this.playAudio(AUDIO_UI, SOUND_STOP)
         },
 
         stopAudio(audio) {
@@ -260,7 +308,7 @@ export default {
             this.markComplete(this.activeIndex)
 
             // Make some noise
-            this.playAudio(SOUND_COMPLETE)
+            this.playAlarm()
 
             // Advance to the next timer if available
             const nextIndex = this.timers.findIndex((t, i) => i !== this.activeIndex && !t.complete)
