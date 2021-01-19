@@ -5,9 +5,10 @@ const DURATION_BREAK_SHORT =  5 * time.MINUTES
 const DURATION_BREAK_LONG  = 30 * time.MINUTES
 const TICK_INTERVAL        =  1 * time.SECONDS
 
-const KEY_STOP_SOUND       = 'k'
+const KEY_STOP_SOUND       = 'm'
+const KEY_TOGGLE_START     = 'k'
 const KEY_TOGGLE_EXPAND    = 'p'
-const SOUND_COMPLETE       = new Audio('/sounds/fanfare/fanfare.mp3')
+const SOUND_COMPLETE       = new Audio(`/sounds/${location.search === '?ff' ? 'fanfare/fanfare' : 'four-beeps/four-beeps'}.mp3`)
 const SOUND_STARTSTOP      = new Audio('/sounds/click/click.mp3')
 
 
@@ -121,18 +122,22 @@ export default {
             this.start()
         }
 
-        // Listen for shortcut key
+        // Listen for shortcut keys
         window.addEventListener('keypress', event => {
             if (event.target.tagName === 'INPUT') {
                 return
             }
 
-            if (event.key === KEY_TOGGLE_EXPAND) {
-                this.toggleExpand()
-            }
-
-            if (event.key === KEY_STOP_SOUND) {
-                this.stopAudio(SOUND_COMPLETE)
+            switch (event.key) {
+                case KEY_STOP_SOUND:
+                    this.stopAudio(SOUND_COMPLETE)
+                    break
+                case KEY_TOGGLE_EXPAND:
+                    this.toggleExpand()
+                    break
+                case KEY_TOGGLE_START:
+                    this.toggleStartStop()
+                    break
             }
         })
     },

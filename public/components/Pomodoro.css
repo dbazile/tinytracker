@@ -51,7 +51,7 @@
 }
 
 .Pomodoro__clock {
-    width: 3em;
+    width: 3.2em;
     padding: 10px;
     background-color: var(--COLOR_CLOCK_BG);
     opacity: .3;

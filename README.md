@@ -34,3 +34,14 @@ so your browser needs to be up to date enough to natively support:
 
 There's probably more but if the browser has the stuff listed above,
 it probably has the rest of the ES features I'm using.
+
+
+# Misc
+
+## Pomodoro Shortcut Keys
+
+| key          | action                          |
+|--------------|---------------------------------|
+| <kbd>m</kbd> | silence pomodoro timer sound    |
+| <kbd>k</kbd> | start/stop pomodoro timer       |
+| <kbd>p</kbd> | expand/collapse pomodoro widget |
