@@ -9,13 +9,11 @@ const KEY_SILENCE_ALARM    = 'm'
 const KEY_TOGGLE_START     = 'k'
 const KEY_TOGGLE_EXPAND    = 'p'
 
-const ALARMS = {
-    'Bell':       '/sounds/bell/bell.mp3',
-    'Beep':       '/sounds/four-beeps/four-beeps.mp3',
-    'Drum':       '/sounds/drum/drum.mp3',
-    'Fanfare':    '/sounds/fanfare/fanfare.mp3',
-    'Flute':      '/sounds/flute-trill/flute-trill.mp3',
-}
+const ALARMS               = {'Bell':    '/sounds/bell/bell.mp3',
+                              'Beep':    '/sounds/four-beeps/four-beeps.mp3',
+                              'Drum':    '/sounds/drum/drum.mp3',
+                              'Fanfare': '/sounds/fanfare/fanfare.mp3',
+                              'Flute':   '/sounds/flute-trill/flute-trill.mp3'}
 const SOUND_START          = '/sounds/ui/start.mp3'
 const SOUND_STOP           = '/sounds/ui/stop.mp3'
 
@@ -74,8 +72,10 @@ export default {
                     <input
                         class="Pomodoro__timerComplete"
                         type="checkbox"
+                        tabindex="-1"
                         :placeholder="'Task ' + (timers.length + 1)"
                         :checked="timer.complete"
+                        @focus="$event.target.blur()"
                         @change="onTimerCompleteChange(i, $event.target.checked)"
                     />
                     <input
