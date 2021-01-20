@@ -46,7 +46,7 @@
 
 .Duration__hours {
     width: 10em;
-    text-align: right;
+    text-align: center;
     padding: .5em;
     opacity: .4;
 }
