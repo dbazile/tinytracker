@@ -2,10 +2,10 @@
     --COLOR_HEADER_BG:          hsl(235, 40%, 93%);
     --COLOR_HEADER_FG:          hsl(235, 40%, 53%);
     --COLOR_CLOCK_BG:           hsl(235, 80%, 65%);
-    --COLOR_TIMER_TASK_BG:      hsl(225, 45%, 57%);
+    --COLOR_TIMER_TASK_BG:      hsl(225, 35%, 80%);
     --COLOR_TIMER_TASK_FG:      white;
-    --COLOR_TIMER_BREAK_BG:     hsl(225, 45%, 67%);
-    --COLOR_TIMER_BREAK_FG:     hsl(225, 45%, 80%);
+    --COLOR_TIMER_BREAK_BG:     hsl(225, 35%, 74%);
+    --COLOR_TIMER_BREAK_FG:     hsl(225, 35%, 82%);
     --COLOR_TIMER_COMPLETE_BG:  hsl(165, 65%, 50%);
     --COLOR_TIMER_COMPLETE_FG:  white;
     --COLOR_TOTAL_DURATION_BG:  hsl(225, 30%, 30%);
@@ -189,8 +189,8 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    background-color: rgba(0, 0, 0, .1);
-    color: rgba(255, 255, 255, .5);
+    background-color: hsla(225, 45%, 40%, .1);
+    color: rgba(255, 255, 255, .7);
     cursor: pointer;
 }
 
