@@ -272,7 +272,7 @@ export default {
             console.debug('[Pomodoro] start: interval=%s index=%s', TICK_INTERVAL, activeIndex)
 
             this.activeIndex = activeIndex
-            this.$emit('started', Date.now())
+            this.$emit('started', this.startTime || Date.now())
             this.ticker = setInterval(this.tick, TICK_INTERVAL)
             this.tick()
 
