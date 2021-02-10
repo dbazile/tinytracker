@@ -46,7 +46,7 @@ export default {
                 <div class="Pomodoro__clock">{{clock || '--:--'}}</div>
             </div>
 
-            <div class="Pomodoro__track" v-if="timers.length">
+            <div class="Pomodoro__track" v-if="timers.length || isExpanded">
                 <span
                     v-for="(timer, i) in timers"
                     :title="timer.text"
@@ -59,6 +59,14 @@ export default {
                 />
             </div>
 
+            <div class="Pomodoro__controls" v-if="isExpanded">
+                <button class="Pomodoro__controlsButton Pomodoro__startStopButton" :disabled="!timers.length" @click="toggleStartStop">\u23FB</button>
+                <button class="Pomodoro__controlsButton Pomodoro__clearButton" :disabled="!timers.length" @click="clear">Clear</button>
+                <button class="Pomodoro__controlsButton Pomodoro__fillButton" @click="fill">Fill</button>
+                <button class="Pomodoro__controlsButton Pomodoro__addTimerButton" @click="add(5)">+5</button>
+                <button class="Pomodoro__controlsButton Pomodoro__addTimerButton" @click="add(25)">+25</button>
+                <button class="Pomodoro__controlsButton Pomodoro__addTimerButton" @click="add(30)">+30</button>
+            </div>
             <ul class="Pomodoro__body" v-if="isExpanded">
                 <li
                     v-for="(timer, i) in timers"
@@ -107,15 +115,6 @@ export default {
                     </div>
                 </li>
             </ul>
-
-            <div class="Pomodoro__footer" v-if="isExpanded">
-                <button class="Pomodoro__footerButton Pomodoro__startStopButton" :disabled="!timers.length" @click="toggleStartStop">\u23FB</button>
-                <button class="Pomodoro__footerButton Pomodoro__clearButton" :disabled="!timers.length" @click="clear">Clear</button>
-                <button class="Pomodoro__footerButton Pomodoro__fillButton" @click="fill">Fill</button>
-                <button class="Pomodoro__footerButton Pomodoro__addTimerButton" @click="add(5)">+5</button>
-                <button class="Pomodoro__footerButton Pomodoro__addTimerButton" @click="add(25)">+25</button>
-                <button class="Pomodoro__footerButton Pomodoro__addTimerButton" @click="add(30)">+30</button>
-            </div>
         </div>
     `,
 
