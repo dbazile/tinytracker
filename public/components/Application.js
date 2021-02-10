@@ -110,8 +110,13 @@ export default {
         reset() {
             localStorage.clear()
 
+            const newState = deserialize()
+
+            // Perist alarms across resets
+            newState.pomodoro.alarm = this.pomodoro.alarm
+
             // ¯\_(ツ)_/¯
-            Object.assign(this, deserialize())
+            Object.assign(this, newState)
         },
 
         shrink() {
