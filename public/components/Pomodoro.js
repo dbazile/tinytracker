@@ -354,11 +354,7 @@ export default {
                 return
             }
 
-            if (next.length != prev.length) {
-                const newIndex = this.timers.findIndex(t => !t.complete)
-                console.debug('[Pomodoro] reset activeIndex: was=%s new=%s', this.activeIndex, newIndex)
-                this.activeIndex = newIndex
-            }
+            this.activeIndex = this.timers.findIndex(t => !t.complete)
         },
     },
 }
