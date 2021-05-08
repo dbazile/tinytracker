@@ -1,9 +1,9 @@
-library 'deployment'
+library 'libcommon'
 
 node {
     checkout scm
 
     stage('Deploy') {
-        deployApplication('tinytracker')
+        libcommon.deploy('tinytracker')
     }
 }
